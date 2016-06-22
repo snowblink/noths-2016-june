@@ -23,6 +23,14 @@ class Bottles
     end
   end
 
+  def pronoun(number)
+    if number == 1
+      "it"
+    else
+      "one"
+    end
+  end
+
   def amount(number)
     if number == 0
       "no more"
@@ -36,14 +44,6 @@ class Bottles
       "Go to the store and buy some more"
     else
       "Take #{pronoun(number)} down and pass it around"
-    end
-  end
-
-  def pronoun(number)
-    if number == 1
-      "it"
-    else
-      "one"
     end
   end
 
