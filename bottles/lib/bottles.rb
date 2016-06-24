@@ -44,6 +44,8 @@ class Bottle
       Bottle0.new(number)
     when 1
       Bottle1.new(number)
+    when 6
+      Bottle6.new(number)
     else
       Bottle.new(number)
     end
@@ -88,5 +90,14 @@ class Bottle1 < Bottle
   end
   def how_many
     "it"
+  end
+end
+
+class Bottle6 < Bottle
+  def amount
+    "1"
+  end
+  def plural
+    "six-pack"
   end
 end
