@@ -1,4 +1,11 @@
-class Bottles
+class Integer
+  def to_bottle
+    Bottle.for(self)
+  end
+end
+
+
+class BottleSong
   def song
     verses(99,0)
   end
@@ -10,57 +17,71 @@ class Bottles
   end
 
   def verse(number)
-    "#{amount(number).capitalize} #{plural(number)} of beer on the wall, " +
-    "#{amount(number)} #{plural(number)} of beer.\n" +
-    "#{action(number)}, " +
-    "#{number_of_bottles(succ(number))} #{plural(number - 1)} of beer on the wall.\n"
+    bottle = number.to_bottle
+    next_bottle = bottle.succ
+    "#{bottle.amount.capitalize} #{bottle.plural} of beer on the wall, " +
+    "#{bottle.amount} #{bottle.plural} of beer.\n" +
+    "#{bottle.action}, " +
+    "#{next_bottle.amount} #{next_bottle.plural} of beer on the wall.\n"
   end
 
-  def succ(number)
-    if number == 0
-      99
+end
+
+class Bottle
+  attr_reader :number
+  def initialize(number)
+    @number = number
+  end
+
+  def Bottle.for(number)
+    case number
+    when 0
+      Bottle0.new(number)
+    when 1
+      Bottle1.new(number)
     else
-      number - 1
+      Bottle.new(number)
     end
   end
 
-  def action(number)
-    if number == 0
-      "Go to the store and buy some more"
-    else
-      "Take #{how_many(number)} down and pass it around"
-    end
+  def succ
+    (number - 1).to_bottle
   end
 
-  def amount(number)
-    if number == 0
-      "no more"
-    else
-      number.to_s
-    end
+  def action
+    "Take #{how_many} down and pass it around"
   end
 
-  def plural(number)
-    if number == 1
-      "bottle"
-    else
-      "bottles"
-    end
+  def how_many
+    "one"
   end
 
-  def number_of_bottles(number)
-    if number == 0
-      "no more"
-    else
-      number
-    end
+  def amount
+    number.to_s
   end
 
-  def how_many(number)
-    if number == 1
-      "it"
-    else
-      "one"
-    end
+  def plural
+    "bottles"
+  end
+end
+
+class Bottle0 < Bottle
+  def amount
+    "no more"
+  end
+  def action
+    "Go to the store and buy some more"
+  end
+  def succ
+    99.to_bottle
+  end
+end
+
+class Bottle1 < Bottle
+  def plural
+    "bottle"
+  end
+  def how_many
+    "it"
   end
 end
