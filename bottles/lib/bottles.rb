@@ -34,6 +34,11 @@ class Bottle
   end
 
   def Bottle.for(number)
+    # begin
+    #   Kernel.const_get("Bottle#{number}").new(number)
+    # rescue
+    #   Bottle.new(number)
+    # end
     case number
     when 0
       Bottle0.new(number)
